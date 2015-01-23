@@ -65,7 +65,7 @@ abline(h=startcash,lwd=1)
 Try it out!
 ========================================================
 
-- The complete interactive simulation is hosted on [shinyapps.io](http:www.shinyapps.io)
+- The complete interactive simulation is hosted on [shinyapps.io](http://www.shinyapps.io)
 
 - [https://markcheno.shinyapps.io/trading-system-simulator/](https://markcheno.shinyapps.io/trading-system-simulator/)
 
