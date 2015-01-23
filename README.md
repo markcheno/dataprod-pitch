@@ -1,2 +1,2 @@
 # dataprod-pitch
-Pitch presentation for Developing Data Products course project
+R Presentation pitch for Developing Data Products course project

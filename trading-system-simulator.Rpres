@@ -1,0 +1,74 @@
+Monte Carlo Trading System Simulator
+========================================================
+author: Mark Chenoweth
+date: 1/17/2015
+transition: rotate
+
+What is it?
+========================================================
+
+- This application is a Monte Carlo simulation of a hypothetical
+trading system
+
+- A Monte Carlo Simulation is a mathematical technique that
+allows for people to account for risk in their decision making
+
+- The application is hosted online and is fully interactive allowing
+for easy evaluation of various trading system parameters
+
+Why?
+========================================================
+
+- It provides an easy to comprehend graphical view of
+the expected trading system performance and several key
+statistics related to probable system performance
+
+- It is very easy to tweak system parameters and immediately
+get visual feedback on how the changes will affect the system
+
+- It is extremely useful to get a feel for how a trading system
+is expected to behave in the future
+
+Example:
+========================================================
+left: 30%
+
+Inputs
+- ntrades = 500
+- pctwin  = 55%
+- avgwin  = $100
+- avgloss = $50
+
+***
+Output plot
+```{r echo=FALSE}
+nsims <- 1000
+ntrades <- 500
+pctwin <- 55
+avgwin <- 100
+avgloss <- 50
+startcash <- 10000
+
+equity <- function(startcash,ntrades,pctwin,avgwin,avgloss) startcash+c(0,cumsum(ifelse(runif(ntrades)<pctwin/100,avgwin,-avgloss)))
+
+df <- data.frame(replicate(nsims,equity(startcash,ntrades,pctwin,avgwin,avgloss))) 
+endvalue <- sapply(df,function(x) tail(x,1) )
+maxdd <- sapply(df,function(x) { min(tail(x-cummax(x),-1)) })
+expectancy <- (pctwin/100*avgwin)-((1-pctwin/100)*avgloss)
+
+plot(df[,1],type="l",lwd=2,main="Simulated equity curves",ylab='Equity',xlab='Trade Num',ylim=c(min(df),max(df)))
+for( n in sample(1:ncol(df),25) ) 
+  lines(df[,n],col=sample(rainbow(10)),lwd=2)    
+abline(h=startcash,lwd=1)        
+```
+
+Try it out!
+========================================================
+
+- The complete interactive simulation is hosted on [shinyapps.io](http:www.shinyapps.io)
+
+- [https://markcheno.shinyapps.io/trading-system-simulator/](https://markcheno.shinyapps.io/trading-system-simulator/)
+
+- Please give it a try!
+
+-Feedback is always appreciated: <mark@cheno.net>
